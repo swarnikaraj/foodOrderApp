@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+
+        .signup_div{
+padding:20px;
+            width:400px;
+            height:400px;
+            background-color: cadetblue;
+            margin: auto;
+        }
+
+        .signup_div>input{margin:10px;}
+    </style>
+</head>
+<body>
+
+<h1> <a href="index.html">Back To Home Page</a></h1>
+
+    <div class='signup_div'>
+
+      <input type='text' id='name' placeholder="Name">
+      <input  type='text' id='email' placeholder="email">
+      <input  type='password' id='password' placeholder="Password">
+      <input type='text' id='username' placeholder="Username">
+      <input type='text' id='mobile' placeholder="Mobile">
+
+      <input type='text' id='description' placeholder="description">
+
+     <input type='submit' onclick="signup()" >
+
+    </div>
+    
+</body>
+</html>
+
+<script>
+
+
+
+
+async function signup(){
+
+
+user_data={  
+name:document.getElementById('name').value,
+email:document.getElementById('email').value,
+password:document.getElementById('password').value,
+username:document.getElementById('username').value,
+mobile:document.getElementById('mobile').value,
+description:document.getElementById('description').value
+
+
+}
+
+
+data_to_send=JSON.stringify(user_data)
+
+
+try{
+response=await fetch('https://masai-api-mocker.herokuapp.com/auth/register',{
+
+method:"POST",
+body:data_to_send,
+headers:{
+    'Content-Type':'application/json'
+}
+ 
+
+
+})
+
+data=await response.json()
+
+console.log(data)
+
+}
+
+catch(e){
+
+console.log(e)
+
+}
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>

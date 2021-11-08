@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+
+.navbar{display:flex;  position:fixed; top:0; left:0;right:0; width:100%; background-color: black; color: white; height:80px}
+.navbar>div{margin:auto}
+
+.item_show{
+    padding:30px;
+     margin-top:200px; 
+    width:800px;  background-color: cadetblue;
+
+    margin:auto;
+
+    margin-left: 300px;
+
+    text-align: center;
+
+ }
+
+ .item_show>img{
+     width:500px;
+ }
+
+ .item_show>button{width:100px; padding:10px;}
+
+    </style>
+     </head>
+     <body>
+
+        <div id='navbar' class='navbar'>
+
+            <div ><a href="index.html">Home</a></div>
+            <div><a href='login.html'>Login</a> </div>
+            <div> <a href="register.html">Sign Up</a></div>
+            <div><a href="menu.html"> Menu</a></div>
+    
+        </div>
+
+  
+
+   <div class='item_show' id='show_item'>
+   
+
+     
+  
+
+
+
+   </div>
+
+
+
+
+    
+</body>
+</html>
+
+<script>
+
+
+async function getdata(){
+
+
+    try{
+
+
+    res= await fetch('https://www.themealdb.com/api/json/v1/1/random.php')
+    data= await res.json()
+
+    
+    append_data(data.meals)
+
+    console.log(data.meals)
+
+    }
+
+     
+    catch(e){
+        console.log(e)
+    }
+
+
+}
+
+getdata()
+
+
+show_item=document.getElementById('show_item')
+
+
+function append_data(data){
+
+    
+
+   data.forEach(item => {
+
+    img=document.createElement('img')
+    img.src=item.strMealThumb
+
+       
+     h1=document.createElement('h1')
+     h1.innerHTML=item.strMeal
+
+
+     p=document.createElement('p')
+
+     p.innerHTML=item.strInstructions
+
+     p2=document.createElement('p')
+     p2.innerHTML=item.idMeal
+      
+     
+
+     btn=document.createElement('button')
+     btn.innerHTML='Add to Cart'
+      btn.onclick= ()=>{
+
+        addtocart(item)
+
+      }
+
+     show_item.append(img,h1,p,p2,btn)
+     
+   });
+
+   
+
+
+
+
+   }
+
+   if(localStorage.getItem('cart_p2')==undefined){
+        localStorage.setItem('cart_p2',JSON.stringify([]))
+    }
+
+
+function addtocart(item){
+
+    arr= JSON.parse(localStorage.getItem('cart_p2'))
+    arr.push(item)
+
+   localStorage.setItem('cart_p2',JSON.stringify(arr))
+
+
+
+}
+
+
+
+</script>
